@@ -31,7 +31,7 @@ public class ItemRatingResource {
     }
 
     @GetMapping("/rating/{id}")
-    ResponseEntity<UserRating> get(@PathVariable("id") String id)
+    ResponseEntity<List<UserRating>> get(@PathVariable("id") String id)
     {
         int key = Integer.parseInt(id);
         return ResponseEntity.status(HttpStatus.OK).body(hospitalDAO.get(key));

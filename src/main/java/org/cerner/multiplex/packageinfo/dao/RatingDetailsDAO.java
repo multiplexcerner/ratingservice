@@ -1,6 +1,8 @@
 package org.cerner.multiplex.packageinfo.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -102,8 +104,17 @@ public class RatingDetailsDAO<String, UserRating> {
      * @param key the lookup key
      * @return the value stored under the given key, or null
      */
-    public synchronized UserRating get(String key) {
-        return map.get(key);
+    public synchronized List<org.cerner.multiplex.packageinfo.model.UserRating> get(int key) {
+        List<org.cerner.multiplex.packageinfo.model.UserRating> ratings = new ArrayList<>();
+        for (Map.Entry<String, UserRating> entry : map.entrySet())
+        {
+            org.cerner.multiplex.packageinfo.model.UserRating ratingItem = (org.cerner.multiplex.packageinfo.model.UserRating)entry.getValue();
+
+            if (ratingItem.getPackageId() ==key) {
+                ratings.add(ratingItem);
+            }
+        }
+        return ratings;
     }
 }
 
